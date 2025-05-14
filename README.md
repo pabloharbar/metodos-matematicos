@@ -30,5 +30,5 @@ Select the corresponding executable to use as a Jupyter Python kernel, if using 
 To run the stability analysis app use the following command:
 
 ```bash
-uv run streamlit run damper/app.py
+uv run streamlit run app/app.py
 ```
