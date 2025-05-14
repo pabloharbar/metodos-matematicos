@@ -25,3 +25,10 @@ uv pip install .
 This will build a virtual environment under *.venv* folder with the python executable.
 Select the corresponding executable to use as a Jupyter Python kernel, if using (VSCode)[https://code.visualstudio.com/docs/datascience/jupyter-kernel-management]
 
+### Stability analysis app
+
+To run the stability analysis app use the following command:
+
+```bash
+uv run streamlit run damper/app.py
+```
