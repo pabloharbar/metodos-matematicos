@@ -18,12 +18,13 @@ def solve_for_y(damper_system_cfg: DamperSystem):
         y(0): damper_system_cfg.ics.x0,
         Derivative(y(x), x).subs(x, 0): damper_system_cfg.ics.v0,
     }
-    particular_solution = dsolve(eq, y(x), ics=ics)
-    current_solution = particular_solution.subs(
-        {m: damper_system_cfg.m, c: damper_system_cfg.c, k: damper_system_cfg.k}
+    current_solution = dsolve(
+        eq.subs(
+            {m: damper_system_cfg.m, c: damper_system_cfg.c, k: damper_system_cfg.k}
+        ),
+        y(x),
+        ics=ics,
     )
-
-    # Time evolution plot
     time_solution = np.linspace(
         damper_system_cfg.start_time, damper_system_cfg.end_time, 1000
     )

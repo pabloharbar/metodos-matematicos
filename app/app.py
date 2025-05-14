@@ -20,16 +20,13 @@ def log_system_properties(c_val, m_val, k_val):
 
     charact_expander = st.sidebar.expander("System Characteristics")
 
-    det_lhs = c_val**2
-    det_rhs = 4 * m_val * k_val
-
-    if c_val == 0 and np.isclose(p, 0) and q > 0:
+    if np.isclose(c_val, 0):
         system_type = "No damping, center"
-    elif det_lhs < det_rhs and p < 0 and q > 0 and delta < 0:
+    elif delta < 0:
         system_type = "Underdamping, stable and attractive spiral"
-    elif np.isclose(det_lhs, det_rhs) and p < 0 and q > 0 and delta == 0:
+    elif delta == 0:
         system_type = "Critical damping, stable and attractive point"
-    elif det_lhs > det_rhs and p < 0 and q > 0 and delta > 0:
+    elif delta > 0:
         system_type = "Overdamping, stable and attractive"
     elif p >= 0:
         system_type = "Unstable"
@@ -40,6 +37,8 @@ def log_system_properties(c_val, m_val, k_val):
         * **p value:** {p:.2f}
         * **q value:** {q:.2f}
         * **Δ value:** {delta:.2f}
+        * **λ¹ value:** {(p+delta**0.5)/2:.2f}
+        * **λ² value:** {(p-delta**0.5)/2:.2f}
         * **System type:** {system_type}
     """
     charact_expander.markdown(markdown_string)
@@ -50,21 +49,21 @@ def setup_sidebar():
     system_expander = st.sidebar.expander("Edit Parameters")
     mass_slider = system_expander.slider(
         "Mass M",
-        0.001,
+        0.0,
         20.0,
         st.session_state.system_params.m,
         key="mass_slider",
     )
     spring_slider = system_expander.slider(
         "Spring K",
-        0.001,
+        0.0,
         20.0,
         st.session_state.system_params.k,
         key="spring_slider",
     )
     damper_slider = system_expander.slider(
         "Damper C",
-        0.001,
+        0.0,
         20.0,
         st.session_state.system_params.c,
         key="damper_slider",
